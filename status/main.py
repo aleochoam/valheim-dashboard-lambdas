@@ -1,4 +1,4 @@
-import json, boto3
+import json, boto3, os
 
 def handler(event, context):
     client = boto3.client('ec2', region_name='us-east-2')
@@ -16,7 +16,10 @@ def handler(event, context):
         "statusCode": 200,
         "isBase64Encoded": False,
         "headers": {
-            "content-type": "application/json"
+            "content-type": "application/json",
+            'Access-Control-Allow-Headers': 'Content-Type',
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
         },
         "body" : json.dumps({
             "public_ip": public_ip,
